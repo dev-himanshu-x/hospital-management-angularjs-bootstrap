@@ -5,15 +5,15 @@
     <div class="p-5 h-100 d-flex justify-content-center flex-column">
         <form ng-submit="submit()">
             <h1 class="mb-1">Sign In</h1>
-            <p class="mb-4 small">Don't have an account ? <span ui-sref="signup" class="text-primary">Doctor Sign Up / </span><span
-                    ui-sref="signup_" class="text-primary">Patient Sign Up</span></p>
+            <p class="mb-4 small">Don't have an account ? <a ui-sref="signup" class="text-primary fw-semibold" style="text-decoration:none">Doctor Sign Up</a> / <a
+                    ui-sref="signup_" class="text-primary fw-semibold" style="text-decoration:none">Patient Sign Up</a></p>
             <div class="w-100 mb-4">
-                <input type="text" placeholder="Email" required ng-model="email" class="form-control rounded-5"
-                    pattern="[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}">
+                <input type="email" placeholder="Email" required ng-model="email" class="form-control rounded-5"
+                    pattern="[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}" title="Enter a valid email (e.g. name@example.com)">
             </div>
             <div class="w-100 mb-4 form-control rounded-5 d-flex">
                 <input ng-attr-type="{{input_type}}" type="password" placeholder="Password" required ng-model="password"
-                    pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}">
+                    pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}" title="8-16 chars with uppercase, lowercase, number & special character">
                 <div ng-click="toggle()">
                     <span ng-if="input_type == 'password'"><i class="ri-eye-off-line"></i></span>
                     <span ng-if="input_type != 'password'"><i class="ri-eye-line"></i></span>

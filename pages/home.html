@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="home">
-    <nav class="navbar navbar-expand-md border-bottom">
+    <nav class="navbar navbar-expand-md border-bottom shadow-sm bg-white sticky-top">
         <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap">
             <a class="navbar-brand p-0" href="#">
                 <img src="assets/logo.png" height="50" width="50" alt="App Logo">
@@ -10,17 +10,17 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavContent">
                 <ul class="navbar-nav d-flex align-items-center flex-row gap-4 px-4">
-                    <li class="nav-item">
-                        <a class="nav-link text-muted fw-semibold" ui-sref="medical" ng-if="user">Appointments</a>
+                    <li class="nav-item" ng-if="user">
+                        <a class="nav-link text-muted fw-semibold" ui-sref="medical"><i class="ri-calendar-check-line me-1"></i>Appointments</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-muted fw-semibold" ui-sref="profile" ng-if="user">Profile</a>
+                    <li class="nav-item" ng-if="user">
+                        <a class="nav-link text-muted fw-semibold" ui-sref="profile"><i class="ri-user-line me-1"></i>Profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger fw-semibold" ng-click="logout()" ng-if="user">Sign Out</a>
+                    <li class="nav-item" ng-if="user">
+                        <a class="nav-link text-danger fw-semibold" style="cursor:pointer" ng-click="logout()"><i class="ri-logout-box-r-line me-1"></i>Sign Out</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-primary fw-semibold" ui-sref="signin" ng-if="!user">Sign In</a>
+                    <li class="nav-item" ng-if="!user">
+                        <a class="nav-link text-primary fw-semibold" ui-sref="signin"><i class="ri-login-box-line me-1"></i>Sign In</a>
                     </li>
                 </ul>
             </div>

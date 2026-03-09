@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="profile">
-    <nav class="navbar navbar-expand-md border-bottom">
+    <nav class="navbar navbar-expand-md border-bottom shadow-sm bg-white sticky-top">
         <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap">
             <a class="navbar-brand p-0" href="#">
                 <img src="assets/logo.png" height="50" width="50" alt="App Logo">
@@ -11,77 +11,114 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavContent">
                 <ul class="navbar-nav d-flex align-items-center flex-row gap-4 px-4">
                     <li class="nav-item">
-                        <a class="nav-link text-muted fw-semibold" ui-sref="/">Home</a>
+                        <a class="nav-link text-muted fw-semibold" ui-sref="/"><i class="ri-home-4-line me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item" ng-if="role == 'Patient'">
+                        <a class="nav-link text-muted fw-semibold" ui-sref="medical"><i class="ri-calendar-check-line me-1"></i>Appointments</a>
+                    </li>
+                    <li class="nav-item" ng-if="role == 'Doctor' || role == 'Receptionist'">
+                        <a class="nav-link text-muted fw-semibold" ui-sref="appointment"><i class="ri-calendar-check-line me-1"></i>Appointments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-muted fw-semibold" ui-sref="medical">Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger fw-semibold" ng-click="logout()">Sign Out</a>
+                        <a class="nav-link text-danger fw-semibold" style="cursor:pointer" ng-click="logout()"><i class="ri-logout-box-r-line me-1"></i>Sign Out</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div >
-            <h3 class="mb-3 p-2">Profile: {{fname}}</h3>
-            <table class="table table-bordered table-striped">
-                <tbody>
-                    <tr>
-                        <th scope="row">Name</th>
-                        <td>{{fname}} {{lname}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Email</th>
-                        <td>{{email}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Date of Birth</th>
-                        <td>{{dob}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Phone Number</th>
-                        <td>{{phone}}</td>
-                    </tr>
-                    <tr ng-if="blood">
-                        <th scope="row">Blood Group</th>
-                        <td>{{blood}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Gender</th>
-                        <td>{{gender}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Address</th>
-                        <td>{{address}}</td>
-                    </tr>
-                    <tr ng-if="history">
-                        <th scope="row">Medical History</th>
-                        <td>{{history}}</td>
-                    </tr>
-                    <tr ng-if="height">
-                        <th scope="row">Height</th>
-                        <td>{{height}}</td>
-                    </tr>
-                    <tr ng-if="weight">
-                        <th scope="row">Weight</th>
-                        <td>{{weight}}</td>
-                    </tr>
-                    <tr ng-if="qua">
-                        <th scope="row">Qualification</th>
-                        <td>{{qua}}</td>
-                    </tr>
-                    <tr ng-if="spec">
-                        <th scope="row">Specialization</th>
-                        <td>{{spec}}</td>
-                    </tr>
-                    <tr ng-if="exp">
-                        <th scope="row">Experience</th>
-                        <td>{{exp}}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Profile Header Card -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body text-center py-4" style="background: linear-gradient(135deg, #2f94cb, #1a6fa0); border-radius: 0.375rem;">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white mb-3" style="width: 80px; height: 80px;">
+                            <i class="ri-user-3-fill" style="font-size: 2.5rem; color: #2f94cb;"></i>
+                        </div>
+                        <h3 class="text-white fw-bold mb-1">{{fname}} {{lname}}</h3>
+                        <span class="badge bg-white text-primary px-3 py-2 fw-semibold" ng-if="spec">{{spec}}</span>
+                        <span class="badge bg-white text-primary px-3 py-2 fw-semibold" ng-if="!spec && blood">Patient</span>
+                        <p class="text-white-50 small mt-2 mb-0">{{email}}</p>
+                    </div>
+                </div>
+
+                <!-- Personal Info Card -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h5 class="mb-0 fw-bold"><i class="ri-user-line me-2 text-primary"></i>Personal Information</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4">
+                                <span class="text-muted fw-medium"><i class="ri-calendar-line me-2"></i>Date of Birth</span>
+                                <span class="fw-semibold">{{dob || '-'}}</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4">
+                                <span class="text-muted fw-medium"><i class="ri-phone-line me-2"></i>Phone Number</span>
+                                <span class="fw-semibold">{{phone || '-'}}</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4">
+                                <span class="text-muted fw-medium"><i class="ri-genderless-line me-2"></i>Gender</span>
+                                <span class="fw-semibold">{{gender || '-'}}</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4">
+                                <span class="text-muted fw-medium"><i class="ri-map-pin-line me-2"></i>Address</span>
+                                <span class="fw-semibold">{{address || '-'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Info Card (for patients) -->
+                <div class="card border-0 shadow-sm mb-4" ng-if="blood || history || height || weight">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h5 class="mb-0 fw-bold"><i class="ri-heart-pulse-line me-2 text-danger"></i>Medical Information</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4" ng-if="blood">
+                                <span class="text-muted fw-medium"><i class="ri-drop-line me-2"></i>Blood Group</span>
+                                <span class="badge bg-danger text-white px-3 py-2">{{blood}}</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4" ng-if="history">
+                                <span class="text-muted fw-medium"><i class="ri-file-list-line me-2"></i>Medical History</span>
+                                <span class="fw-semibold">{{history}}</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4" ng-if="height">
+                                <span class="text-muted fw-medium"><i class="ri-ruler-line me-2"></i>Height</span>
+                                <span class="fw-semibold">{{height}} cm</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4" ng-if="weight">
+                                <span class="text-muted fw-medium"><i class="ri-scales-line me-2"></i>Weight</span>
+                                <span class="fw-semibold">{{weight}} kg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Info Card (for doctors) -->
+                <div class="card border-0 shadow-sm mb-4" ng-if="qua || spec || exp">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h5 class="mb-0 fw-bold"><i class="ri-stethoscope-line me-2 text-success"></i>Professional Information</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4" ng-if="qua">
+                                <span class="text-muted fw-medium"><i class="ri-graduation-cap-line me-2"></i>Qualification</span>
+                                <span class="fw-semibold">{{qua}}</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4" ng-if="spec">
+                                <span class="text-muted fw-medium"><i class="ri-hospital-line me-2"></i>Specialization</span>
+                                <span class="fw-semibold">{{spec}}</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4" ng-if="exp">
+                                <span class="text-muted fw-medium"><i class="ri-time-line me-2"></i>Experience</span>
+                                <span class="fw-semibold">{{exp}} years</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

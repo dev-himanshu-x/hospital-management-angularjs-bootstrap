@@ -49,3 +49,20 @@ select {
     background-color: #2f94cb;
 }
 
+[ui-sref] {
+    cursor: pointer;
+}
+
+.nav-link[ng-click] {
+    cursor: pointer;
+}
+
+.appointment-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.appointment-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.12) !important;
+}
+

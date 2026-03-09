@@ -1,0 +1,275 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "first_name": "Rajesh",
+      "last_name": "Kumar",
+      "email": "rajesh@doctor.com",
+      "password": "Test@1234",
+      "dob": "1980-05-15",
+      "phone_no": "9876543210",
+      "gender": "Male",
+      "address": "123 Medical Street, Delhi",
+      "qualification": "MD",
+      "specialization": "Cardiology",
+      "specializations": "Cardiology",
+      "experience": "15",
+      "role": "Doctor"
+    },
+    {
+      "id": "2",
+      "first_name": "Priya",
+      "last_name": "Sharma",
+      "email": "priya@doctor.com",
+      "password": "Test@1234",
+      "dob": "1985-08-20",
+      "phone_no": "9876543211",
+      "gender": "Female",
+      "address": "456 Health Avenue, Mumbai",
+      "qualification": "DM",
+      "specialization": "Neurology",
+      "specializations": "Neurology",
+      "experience": "10",
+      "role": "Doctor"
+    },
+    {
+      "id": "3",
+      "first_name": "Amit",
+      "last_name": "Patel",
+      "email": "amit@doctor.com",
+      "password": "Test@1234",
+      "dob": "1988-03-10",
+      "phone_no": "9876543212",
+      "gender": "Male",
+      "address": "789 Care Road, Ahmedabad",
+      "qualification": "MS",
+      "specialization": "Orthopedics",
+      "specializations": "Orthopedics",
+      "experience": "8",
+      "role": "Doctor"
+    },
+    {
+      "id": "4",
+      "first_name": "Anita",
+      "last_name": "Singh",
+      "email": "anita@reception.com",
+      "password": "Test@1234",
+      "phone_no": "9876543213",
+      "gender": "Female",
+      "dob": "1995-12-25",
+      "address": "101 Hospital Lane, Lucknow",
+      "role": "Receptionist"
+    },
+    {
+      "id": "5",
+      "first_name": "Rahul",
+      "last_name": "Verma",
+      "email": "rahul@patient.com",
+      "password": "Test@1234",
+      "dob": "1995-12-25",
+      "phone_no": "9876543214",
+      "gender": "Male",
+      "blood_group": "B+",
+      "address": "202 Wellness Blvd, Lucknow",
+      "medical_history": "Diabetes",
+      "height": "175",
+      "weight": "72",
+      "role": "Patient"
+    }
+  ],
+  "genders": [
+    {
+      "id": "1",
+      "name": "Male"
+    },
+    {
+      "id": "2",
+      "name": "Female"
+    },
+    {
+      "id": "3",
+      "name": "Other"
+    }
+  ],
+  "blood_groups": [
+    {
+      "id": "1",
+      "name": "A+"
+    },
+    {
+      "id": "2",
+      "name": "A-"
+    },
+    {
+      "id": "3",
+      "name": "B+"
+    },
+    {
+      "id": "4",
+      "name": "B-"
+    },
+    {
+      "id": "5",
+      "name": "AB+"
+    },
+    {
+      "id": "6",
+      "name": "AB-"
+    },
+    {
+      "id": "7",
+      "name": "O+"
+    },
+    {
+      "id": "8",
+      "name": "O-"
+    }
+  ],
+  "specializations": [
+    {
+      "id": "1",
+      "name": "Cardiology"
+    },
+    {
+      "id": "2",
+      "name": "Neurology"
+    },
+    {
+      "id": "3",
+      "name": "Orthopedics"
+    },
+    {
+      "id": "4",
+      "name": "Dermatology"
+    },
+    {
+      "id": "5",
+      "name": "Pediatrics"
+    },
+    {
+      "id": "6",
+      "name": "General Medicine"
+    }
+  ],
+  "qualifications": [
+    {
+      "id": "1",
+      "name": "MBBS"
+    },
+    {
+      "id": "2",
+      "name": "MD"
+    },
+    {
+      "id": "3",
+      "name": "MS"
+    },
+    {
+      "id": "4",
+      "name": "DM"
+    },
+    {
+      "id": "5",
+      "name": "MCh"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1",
+      "doctor_id": 1,
+      "patient_id": 5,
+      "doctor_first_name": "Rajesh",
+      "doctor_last_name": "Kumar",
+      "doctor_specialization_name": "Cardiology",
+      "patient_first_name": "Rahul",
+      "patient_last_name": "Verma",
+      "patient_history": "Diabetes",
+      "name": "Rajesh Kumar",
+      "specialization": "Cardiology",
+      "appointment_date": "2026-03-15",
+      "appointment_time": "10:00:00",
+      "reason_to_vist": "Regular checkup for heart",
+      "status": "Consulted",
+      "fees": 200,
+      "prescription": "Take Aspirin 75mg daily. Follow up in 2 weeks."
+    },
+    {
+      "id": "2",
+      "doctor_id": 2,
+      "patient_id": 5,
+      "doctor_first_name": "Priya",
+      "doctor_last_name": "Sharma",
+      "doctor_specialization_name": "Neurology",
+      "patient_first_name": "Rahul",
+      "patient_last_name": "Verma",
+      "patient_history": "Diabetes",
+      "name": "Priya Sharma",
+      "specialization": "Neurology",
+      "appointment_date": "2026-03-20",
+      "appointment_time": "14:30:00",
+      "reason_to_vist": "Frequent headaches",
+      "status": "Accepted by receptionist",
+      "fees": 200,
+      "prescription": ""
+    },
+    {
+      "id": "3",
+      "doctor_id": 1,
+      "patient_id": 5,
+      "doctor_first_name": "Rajesh",
+      "doctor_last_name": "Kumar",
+      "doctor_specialization_name": "Cardiology",
+      "patient_first_name": "Rahul",
+      "patient_last_name": "Verma",
+      "patient_history": "Diabetes",
+      "name": "Rajesh Kumar",
+      "specialization": "Cardiology",
+      "appointment_date": "2026-03-22",
+      "appointment_time": "11:00:00",
+      "reason_to_vist": "Chest pain and breathlessness",
+      "status": "Rejected by receptionist",
+      "fees": 200,
+      "prescription": "",
+      "reason_for_cancel": "black"
+    },
+    {
+      "id": "4",
+      "doctor_id": 3,
+      "patient_id": 5,
+      "doctor_first_name": "Amit",
+      "doctor_last_name": "Patel",
+      "doctor_specialization_name": "Orthopedics",
+      "patient_first_name": "Rahul",
+      "patient_last_name": "Verma",
+      "patient_history": "Diabetes",
+      "name": "Amit Patel",
+      "specialization": "Orthopedics",
+      "appointment_date": "2026-03-25",
+      "appointment_time": "09:30:00",
+      "reason_to_vist": "Lower back pain",
+      "status": "Accepted by receptionist",
+      "fees": 200,
+      "prescription": ""
+    },
+    {
+      "id": "5",
+      "doctor_id": 2,
+      "patient_id": 5,
+      "doctor_first_name": "Priya",
+      "doctor_last_name": "Sharma",
+      "doctor_specialization_name": "Neurology",
+      "patient_first_name": "Rahul",
+      "patient_last_name": "Verma",
+      "patient_history": "Diabetes",
+      "name": "Priya Sharma",
+      "specialization": "Neurology",
+      "appointment_date": "2026-03-28",
+      "appointment_time": "15:00:00",
+      "reason_to_vist": "Dizziness and migraine",
+      "status": "Accepted by receptionist",
+      "fees": 200,
+      "prescription": ""
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
