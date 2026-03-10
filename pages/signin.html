@@ -6,7 +6,11 @@
         <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
             <form class="w-100" ng-submit="submit()">
                 <h1 class="mb-1">Sign In</h1>
-                <p class="mb-4 small">Don't have an account? <a ui-sref="signup" class="text-primary fw-semibold" style="text-decoration:none">Doctor Sign Up</a> / <a ui-sref="signup_" class="text-primary fw-semibold" style="text-decoration:none">Patient Sign Up</a></p>
+                    <p class="mb-4 small">Don't have an account?
+                        <a ui-sref="signup" class="text-primary fw-semibold" style="text-decoration:none">Doctor Sign Up</a> /
+                        <a ui-sref="signup_" class="text-primary fw-semibold" style="text-decoration:none">Patient Sign Up</a> /
+                        <a ui-sref="signup_receptionist" class="text-primary fw-semibold" style="text-decoration:none">Receptionist Sign Up</a>
+                    </p>
                 <div class="mb-4">
                     <input type="email" placeholder="Email" required ng-model="email" class="form-control rounded-5" pattern="[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}" title="Enter a valid email (e.g. name@example.com)">
                 </div>

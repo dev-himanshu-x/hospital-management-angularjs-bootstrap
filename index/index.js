@@ -75,6 +75,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             url: '/signup_',
             templateUrl: 'pages/signup_patient.html'
         })
+        .state('signup_receptionist', {
+            url: '/signup_receptionist',
+            templateUrl: 'pages/signup_receptionist.html'
+        })
         .state('signin', {
             url: '/signin',
             templateUrl: 'pages/signin.html'
@@ -184,6 +188,52 @@ app.controller('signupctrl', function ($scope, $http, $state) {
                     title: "Welcome aboard!",
                     icon: "success",
                     text: "Patient registered successfully!",
+                    confirmButtonColor: '#2f94cb',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                })
+                $state.go('signin')
+            })
+        })
+    }
+})
+
+app.controller('signupReceptionist', function ($scope, $http, $state) {
+    $scope.input_type = 'password'
+    $scope.toggle = function () {
+        $scope.input_type = $scope.input_type == 'password' ? 'text' : 'password'
+    }
+    $http.get(url + "genders").then(function (r) { $scope.genders = r.data })
+
+    $scope.dobcheck = function () {
+        var dob = $scope.dob;
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (dob > today) {
+            Swal.fire({ title: "Invalid Date", icon: "warning", text: "Date of birth cannot be in the future", confirmButtonColor: '#2f94cb' });
+            return false;
+        }
+        return true;
+    }
+    $scope.submit = function () {
+        if ($scope.password != $scope.confirm_password) {
+            Swal.fire({ title: "Password Mismatch", icon: "warning", text: "Password and Confirm Password does not match", confirmButtonColor: '#2f94cb' })
+            return
+        }
+        var data = formToJson("form")
+        data.role = "Receptionist"
+        data.gender = findName($scope.genders, data.gender)
+        $http.get(url + "users", { params: { email: data.email } }).then(function (r) {
+            if (r.data.length > 0) {
+                Swal.fire({ title: "Email Taken", icon: "warning", text: "This email is already registered", confirmButtonColor: '#2f94cb' })
+                return
+            }
+            $http.post(url + "users", data).then(function () {
+                Swal.fire({
+                    title: "Welcome aboard!",
+                    icon: "success",
+                    text: "Receptionist registered successfully!",
                     confirmButtonColor: '#2f94cb',
                     timer: 2000,
                     timerProgressBar: true,
