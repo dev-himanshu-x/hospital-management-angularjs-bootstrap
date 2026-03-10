@@ -1,95 +1,97 @@
-<div class="p-5 vh-100 w-100 d-flex justify-content-center align-items-center azad" ng-controller="signup">
-    <div class="h-100 d-none d-md-flex align-items-center justify-content-center">
-        <img src="assets/3.jpg" height="690" width="800" alt="image" class="img-fluid">
-    </div>
-    <div class="p-5 h-100 d-flex justify-content-center flex-column">
-        <form class="vh-100 w-100 d-flex flex-column justify-content-center" ng-submit="submit()" id="form">
-            <h1>Sign Up</h1>
-            <p class="mb-4 small">Already have an account ? <a ui-sref="signin" class="text-primary fw-semibold" style="text-decoration:none">Sign In</a></p>
-            <div class="d-flex w-100 mb-4 gap-4">
-                <div class="w-50">
-                    <input type="text" placeholder="First Name" required name="first_name"
-                        class="form-control rounded-5" pattern="[a-zA-Z]{2,20}" title="2-20 alphabetic characters only">
-                </div>
-                <div class="w-50">
-                    <input type="text" placeholder="Last Name" name="last_name" class="form-control rounded-5"
-                        pattern="[a-zA-Z]{2,20}">
-                </div>
-            </div>
-            <div class="d-flex w-100 mb-4 gap-4">
-                <div class="w-50">
-                    <input type="email" placeholder="Email" required name="email" class="form-control rounded-5"
-                        pattern="[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}" title="Enter a valid email (e.g. name@example.com)">
-                </div>
-                <div class="w-50">
-                    <input type="date" name="dob" class="w-100 form-control rounded-5" ng-change="dobcheck()"
-                        ng-model="dob" required>
-                </div>
-            </div>
-            <div class="d-flex w-100 mb-4 gap-4">
-                <div class=" w-50">
-                    <input type="tel" placeholder="Phone Number" required name="phone_no"
-                        class="form-control rounded-5" maxlength="10" minlength="10" pattern="[6789][0-9]{0,9}" title="Enter 10 digit phone number starting with 6,7,8 or 9">
-                </div>
-                <div class="w-50">
-                    <input type="text" placeholder="Alternate Phone Number" class="form-control rounded-5"
-                        maxlength="10" minlength="10" pattern="[6789][0-9]{0,9}">
-                </div>
-            </div>
-            <div class="d-flex w-100 mb-4 gap-4">
-                <div class="w-50">
-                    <select name="gender" class="w-100 form-control rounded-5" required>
-                        <option value="">Gender</option>
-                        <option ng-repeat="gender in genders" value="{{gender.id}}">{{gender.name}}</option>
-                    </select>
-                </div>
-                <div class="w-50">
-                    <input type="file" name="photo" class="form-control rounded-5 bg-none" accept="image/png, image/jpeg ,image/jpg">
-                </div>
-            </div>
-            <div class="d-flex w-100 mb-4 gap-4">
-                <div class="w-50">
-                    <input type="text" placeholder="Address" required name="address" class="form-control rounded-5"
-                        pattern="[A-Z1-9a-z]{1,5}[A-Za-z]{1,}[A-Z1-9a-z]{1,50}">
-                </div>
-                <div class="w-50">
-                    <select name="qualification" class="w-100 form-control rounded-5" required>
-                        <option value="">Qualification</option>
-                        <option ng-repeat="qual in qualification" value="{{qual.id}}">{{qual.name}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="d-flex w-100 mb-4 gap-4">
-                <div class="w-50">
-                    <select name="specialization" class="w-100 form-control rounded-5" required>
-                        <option value="">Specialization</option>
-                        <option ng-repeat="spec in specialization" value="{{spec.id}}">{{spec.name}}</option>
-                    </select>
-                </div>
-                <div class="w-50">
-                    <input type="text" required name="experience" placeholder="Experience"
-                        class="form-control rounded-5" pattern="[0-9]{0,2}" minlength="1" maxlength="2">
-                </div>
-            </div>
-            <div class="d-flex w-100 gap-4">
-                <div class="w-50 mb-4 form-control rounded-5 d-flex">
-                    <input ng-attr-type="{{input_type}}" type="password" name="password" placeholder="Password" required
-                        ng-model="password" pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}">
-                    <div ng-click="toggle()">
-                        <span ng-if="input_type == 'password'"><i class="ri-eye-off-line"></i></span>
-                        <span ng-if="input_type != 'password'"><i class="ri-eye-line"></i></span>
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center" ng-controller="signup">
+    <div class="row w-100">
+        <div class="col-12 col-md-6 d-none d-md-flex align-items-center justify-content-center">
+            <img src="assets/3.jpg" class="img-fluid" alt="image">
+        </div>
+        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+            <form class="w-100" ng-submit="submit()" id="form">
+                <h1>Sign Up</h1>
+                <p class="mb-4 small">Already have an account? <a ui-sref="signin" class="text-primary fw-semibold" style="text-decoration:none">Sign In</a></p>
+                <div class="d-flex w-100 mb-4 gap-4">
+                    <div class="w-50">
+                        <input type="text" placeholder="First Name" required name="first_name"
+                            class="form-control rounded-5" pattern="[a-zA-Z]{2,20}" title="2-20 alphabetic characters only">
+                    </div>
+                    <div class="w-50">
+                        <input type="text" placeholder="Last Name" name="last_name" class="form-control rounded-5"
+                            pattern="[a-zA-Z]{2,20}">
                     </div>
                 </div>
-                <div class="w-50 mb-4 form-control rounded-5 d-flex">
-                    <input ng-attr-type="{{input_type}}" type="password" placeholder="Confirm Password" required
-                        name="confirm_password" ng-model="confirm_password" pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}">
-                    <div ng-click="toggle()">
-                        <span ng-if="input_type == 'password'"><i class="ri-eye-off-line"></i></span>
-                        <span ng-if="input_type != 'password'"><i class="ri-eye-line"></i></span>
+                <div class="d-flex w-100 mb-4 gap-4">
+                    <div class="w-50">
+                        <input type="email" placeholder="Email" required name="email" class="form-control rounded-5"
+                            pattern="[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}" title="Enter a valid email (e.g. name@example.com)">
+                    </div>
+                    <div class="w-50">
+                        <input type="date" name="dob" class="w-100 form-control rounded-5" ng-change="dobcheck()"
+                            ng-model="dob" required>
                     </div>
                 </div>
-            </div>
-            <button class="btn btn-primary w-100 rounded-5 border-0 fw-bold" id="singup" type="submit">Sign Up</button>
-        </form>
+                <div class="d-flex w-100 mb-4 gap-4">
+                    <div class=" w-50">
+                        <input type="tel" placeholder="Phone Number" required name="phone_no"
+                            class="form-control rounded-5" maxlength="10" minlength="10" pattern="[6789][0-9]{0,9}" title="Enter 10 digit phone number starting with 6,7,8 or 9">
+                    </div>
+                    <div class="w-50">
+                        <input type="text" placeholder="Alternate Phone Number" class="form-control rounded-5"
+                            maxlength="10" minlength="10" pattern="[6789][0-9]{0,9}">
+                    </div>
+                </div>
+                <div class="d-flex w-100 mb-4 gap-4">
+                    <div class="w-50">
+                        <select name="gender" class="w-100 form-control rounded-5" required>
+                            <option value="">Gender</option>
+                            <option ng-repeat="gender in genders" value="{{gender.id}}">{{gender.name}}</option>
+                        </select>
+                    </div>
+                    <div class="w-50">
+                        <input type="file" name="photo" class="form-control rounded-5 bg-none" accept="image/png, image/jpeg ,image/jpg">
+                    </div>
+                </div>
+                <div class="d-flex w-100 mb-4 gap-4">
+                    <div class="w-50">
+                        <input type="text" placeholder="Address" required name="address" class="form-control rounded-5"
+                            pattern="[A-Z1-9a-z]{1,5}[A-Za-z]{1,}[A-Z1-9a-z]{1,50}">
+                    </div>
+                    <div class="w-50">
+                        <select name="qualification" class="w-100 form-control rounded-5" required>
+                            <option value="">Qualification</option>
+                            <option ng-repeat="qual in qualification" value="{{qual.id}}">{{qual.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex w-100 mb-4 gap-4">
+                    <div class="w-50">
+                        <select name="specialization" class="w-100 form-control rounded-5" required>
+                            <option value="">Specialization</option>
+                            <option ng-repeat="spec in specialization" value="{{spec.id}}">{{spec.name}}</option>
+                        </select>
+                    </div>
+                    <div class="w-50">
+                        <input type="text" required name="experience" placeholder="Experience"
+                            class="form-control rounded-5" pattern="[0-9]{0,2}" minlength="1" maxlength="2">
+                    </div>
+                </div>
+                <div class="d-flex w-100 gap-4">
+                    <div class="w-50 mb-4 form-control rounded-5 d-flex">
+                        <input ng-attr-type="{{input_type}}" type="password" name="password" placeholder="Password" required
+                            ng-model="password" pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}">
+                        <div ng-click="toggle()">
+                            <span ng-if="input_type == 'password'"><i class="ri-eye-off-line"></i></span>
+                            <span ng-if="input_type != 'password'"><i class="ri-eye-line"></i></span>
+                        </div>
+                    </div>
+                    <div class="w-50 mb-4 form-control rounded-5 d-flex">
+                        <input ng-attr-type="{{input_type}}" type="password" placeholder="Confirm Password" required
+                            name="confirm_password" ng-model="confirm_password" pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}">
+                        <div ng-click="toggle()">
+                            <span ng-if="input_type == 'password'"><i class="ri-eye-off-line"></i></span>
+                            <span ng-if="input_type != 'password'"><i class="ri-eye-line"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 rounded-5 border-0 fw-bold" id="singup" type="submit">Sign Up</button>
+            </form>
+        </div>
     </div>
 </div>

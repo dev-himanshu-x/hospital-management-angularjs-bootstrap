@@ -1,7 +1,6 @@
 var app = angular.module('myapp', ['ui.router'])
-var url = "http://localhost:3000/"
+var url = "https://backend-hospital-management-angularjs.onrender.com/"
 
-// --- Session management via localStorage (json-server has no auth) ---
 function setCurrentUser(user) {
     localStorage.setItem('hms_user', JSON.stringify(user))
 }
@@ -12,7 +11,6 @@ function clearCurrentUser() {
     localStorage.removeItem('hms_user')
 }
 
-// Helper: extract form fields as JSON object (skips file inputs)
 function formToJson(formId) {
     var form = document.getElementById(formId)
     var data = {}
@@ -25,7 +23,6 @@ function formToJson(formId) {
     return data
 }
 
-// Helper: find dropdown name by id
 function findName(arr, id) {
     if (!arr || !id) return ""
     for (var i = 0; i < arr.length; i++) {
@@ -39,18 +36,18 @@ app.factory('httpInterceptor', function ($rootScope, $q) {
     return {
         request: function (config) {
             numLoadings++
-            $rootScope.$broadcast("loader_show")
+            $rootScope.loading = true
             return config
         },
         response: function (response) {
             if ((--numLoadings) === 0) {
-                $rootScope.$broadcast("loader_hide")
+                $rootScope.loading = false
             }
             return response
         },
         responseError: function (response) {
             if ((--numLoadings) === 0) {
-                $rootScope.$broadcast("loader_hide")
+                $rootScope.loading = false
             }
             if (response.config && response.config.skipErrorAlert) {
                 return $q.reject(response)
@@ -99,18 +96,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'pages/reception_appointment.html'
         })
 });
-app.directive("loader", function ($rootScope) {
-    return function ($scope, element, attrs) {
-        $scope.$on("loader_show", function () {
-            return $scope.person = true
-        })
-        return $scope.$on("loader_hide", function () {
-            return $scope.person = false
-        })
-    }
-})
 
-// ===================== Doctor Signup =====================
 app.controller('signup', function ($scope, $http, $state) {
     $scope.input_type = 'password'
     $scope.toggle = function () {
@@ -138,25 +124,29 @@ app.controller('signup', function ($scope, $http, $state) {
         var data = formToJson("form")
         data.role = "Doctor"
         data.gender = findName($scope.genders, data.gender)
-        data.specializations = findName($scope.specialization, data.specialization)
-        data.specialization = data.specializations
+        data.specialization = findName($scope.specialization, data.specialization)
         data.qualification = findName($scope.qualification, data.qualification)
-        $http.post(url + "users", data).then(function () {
-            Swal.fire({
-                title: "Welcome aboard!",
-                icon: "success",
-                text: "Doctor registered successfully!",
-                confirmButtonColor: '#2f94cb',
-                timer: 2000,
-                timerProgressBar: true,
-                showConfirmButton: false
+        $http.get(url + "users", { params: { email: data.email } }).then(function (r) {
+            if (r.data.length > 0) {
+                Swal.fire({ title: "Email Taken", icon: "warning", text: "This email is already registered", confirmButtonColor: '#2f94cb' })
+                return
+            }
+            $http.post(url + "users", data).then(function () {
+                Swal.fire({
+                    title: "Welcome aboard!",
+                    icon: "success",
+                    text: "Doctor registered successfully!",
+                    confirmButtonColor: '#2f94cb',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                })
+                $state.go('signin')
             })
-            $state.go('signin')
         })
     }
 })
 
-// ===================== Patient Signup =====================
 app.controller('signupctrl', function ($scope, $http, $state) {
     $scope.input_type = 'password'
     $scope.toggle = function () {
@@ -184,22 +174,27 @@ app.controller('signupctrl', function ($scope, $http, $state) {
         data.role = "Patient"
         data.gender = findName($scope.genders, data.gender)
         data.blood_group = findName($scope.bloods, data.blood_group)
-        $http.post(url + "users", data).then(function () {
-            Swal.fire({
-                title: "Welcome aboard!",
-                icon: "success",
-                text: "Patient registered successfully!",
-                confirmButtonColor: '#2f94cb',
-                timer: 2000,
-                timerProgressBar: true,
-                showConfirmButton: false
+        $http.get(url + "users", { params: { email: data.email } }).then(function (r) {
+            if (r.data.length > 0) {
+                Swal.fire({ title: "Email Taken", icon: "warning", text: "This email is already registered", confirmButtonColor: '#2f94cb' })
+                return
+            }
+            $http.post(url + "users", data).then(function () {
+                Swal.fire({
+                    title: "Welcome aboard!",
+                    icon: "success",
+                    text: "Patient registered successfully!",
+                    confirmButtonColor: '#2f94cb',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                })
+                $state.go('signin')
             })
-            $state.go('signin')
         })
     }
 })
 
-// ===================== Sign In =====================
 app.controller('signin', function ($scope, $http, $state) {
     $scope.input_type = 'password'
     $scope.toggle = function () {
@@ -241,7 +236,6 @@ app.controller('signin', function ($scope, $http, $state) {
     }
 })
 
-// ===================== Home (Patient Dashboard) =====================
 app.controller('home', function ($scope, $http, $state) {
     var currentUser = getCurrentUser()
     $scope.user = !!currentUser
@@ -295,15 +289,15 @@ app.controller('home', function ($scope, $http, $state) {
             patient_id: currentUser.id,
             doctor_first_name: doctor ? doctor.first_name : "",
             doctor_last_name: doctor ? doctor.last_name : "",
-            doctor_specialization_name: doctor ? doctor.specializations : "",
+            doctor_specialization_name: doctor ? doctor.specialization : "",
             patient_first_name: currentUser.first_name,
             patient_last_name: currentUser.last_name,
             patient_history: currentUser.medical_history || "",
             name: doctor ? doctor.first_name + " " + doctor.last_name : "",
-            specialization: doctor ? doctor.specializations : "",
+            specialization: doctor ? doctor.specialization : "",
             appointment_date: date,
             appointment_time: time,
-            reason_to_vist: $scope.reason_to_visit,
+            reason_to_visit: $scope.reason_to_visit,
             status: "Pending",
             fees: 200,
             prescription: ""
@@ -328,14 +322,74 @@ app.controller('home', function ($scope, $http, $state) {
     }
 })
 
-// ===================== Medical History (Patient Appointments) =====================
 app.controller('medical', function ($scope, $http, $state) {
     var currentUser = getCurrentUser()
     if (!currentUser) { $state.go('signin'); return }
 
-    $http.get(url + "appointments", { params: { patient_id: currentUser.id } }).then(function (r) {
-        $scope.appointments = r.data
-    })
+    function loadAppointments() {
+        $http.get(url + "appointments", { params: { patient_id: currentUser.id } }).then(function (r) {
+            $scope.appointments = r.data
+        })
+    }
+    loadAppointments()
+
+    $scope.cancel = function (id) {
+        Swal.fire({
+            title: 'Cancel Appointment?',
+            text: 'Are you sure you want to cancel this appointment?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Cancel it',
+            cancelButtonText: 'No, Keep it',
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            reverseButtons: true
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                $http.patch(url + "appointments/" + id, { status: "Cancelled by patient" }).then(function () {
+                    Swal.fire({
+                        title: "Cancelled",
+                        icon: "success",
+                        text: "Appointment has been cancelled",
+                        confirmButtonColor: '#2f94cb',
+                        timer: 1500,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    })
+                    loadAppointments()
+                })
+            }
+        })
+    }
+
+    $scope.down = function (id) {
+        var appointment = null
+        for (var i = 0; i < $scope.appointments.length; i++) {
+            if ($scope.appointments[i].id == id) { appointment = $scope.appointments[i]; break }
+        }
+        if (!appointment || !appointment.prescription) {
+            Swal.fire({ title: "No Prescription", icon: "info", text: "No prescription available", confirmButtonColor: '#2f94cb' })
+            return
+        }
+        var text = "========================================\n"
+        text += "           PRESCRIPTION\n"
+        text += "========================================\n\n"
+        text += "Doctor: Dr. " + appointment.name + "\n"
+        text += "Specialization: " + appointment.specialization + "\n"
+        text += "Date: " + appointment.appointment_date + "\n"
+        text += "Time: " + appointment.appointment_time + "\n\n"
+        text += "Patient: " + appointment.patient_first_name + " " + appointment.patient_last_name + "\n\n"
+        text += "----------------------------------------\n"
+        text += "Prescription:\n" + appointment.prescription + "\n"
+        text += "----------------------------------------\n"
+        var blob = new Blob([text], { type: 'text/plain' })
+        var link = document.createElement('a')
+        link.href = URL.createObjectURL(blob)
+        link.download = 'prescription_' + appointment.appointment_date + '.txt'
+        link.click()
+        URL.revokeObjectURL(link.href)
+    }
+
     $scope.logout = function () {
         Swal.fire({
             title: 'Logout',
@@ -356,8 +410,7 @@ app.controller('medical', function ($scope, $http, $state) {
     }
 })
 
-// ===================== Receptionist / Doctor Appointments =====================
-app.controller('appointmen', function ($scope, $http, $state) {
+app.controller('appointment', function ($scope, $http, $state) {
     var currentUser = getCurrentUser()
     if (!currentUser) { $state.go('signin'); return }
     $scope.user = currentUser.role
@@ -444,32 +497,82 @@ app.controller('appointmen', function ($scope, $http, $state) {
     show()
 })
 
-// ===================== Profile =====================
 app.controller('profile', function ($scope, $http, $state) {
     var currentUser = getCurrentUser()
     if (!currentUser) { $state.go('signin'); return }
 
     $scope.role = currentUser.role
+    $scope.editData = {}
 
-    // Fetch fresh data from server to ensure profile is up to date
-    $http.get(url + "users/" + currentUser.id).then(function (r) {
-        var user = r.data
-        setCurrentUser(user)
-        $scope.fname = user.first_name
-        $scope.lname = user.last_name
-        $scope.email = user.email
-        $scope.dob = user.dob
-        $scope.phone = user.phone_no
-        $scope.blood = user.blood_group
-        $scope.gender = user.gender
-        $scope.address = user.address
-        $scope.history = user.medical_history
-        $scope.height = user.height
-        $scope.weight = user.weight
-        $scope.qua = user.qualification
-        $scope.spec = user.specialization
-        $scope.exp = user.experience
-    })
+    $http.get(url + "genders").then(function (r) { $scope.genders = r.data })
+    if (currentUser.role === 'Patient') {
+        $http.get(url + "blood_groups").then(function (r) { $scope.bloods = r.data })
+    }
+    if (currentUser.role === 'Doctor') {
+        $http.get(url + "specializations").then(function (r) { $scope.specializations = r.data })
+        $http.get(url + "qualifications").then(function (r) { $scope.qualifications = r.data })
+    }
+
+    function loadProfile() {
+        $http.get(url + "users/" + currentUser.id).then(function (r) {
+            var user = r.data
+            setCurrentUser(user)
+            $scope.fname = user.first_name
+            $scope.lname = user.last_name
+            $scope.email = user.email
+            $scope.dob = user.dob
+            $scope.phone = user.phone_no
+            $scope.blood = user.blood_group
+            $scope.gender = user.gender
+            $scope.address = user.address
+            $scope.history = user.medical_history
+            $scope.height = user.height
+            $scope.weight = user.weight
+            $scope.qua = user.qualification
+            $scope.spec = user.specialization
+            $scope.exp = user.experience
+        })
+    }
+    loadProfile()
+
+    $scope.startEdit = function () {
+        $scope.editData = {
+            first_name: $scope.fname,
+            last_name: $scope.lname,
+            dob: $scope.dob,
+            phone_no: $scope.phone,
+            gender: $scope.gender,
+            address: $scope.address
+        }
+        if ($scope.role === 'Patient') {
+            $scope.editData.blood_group = $scope.blood
+            $scope.editData.medical_history = $scope.history
+            $scope.editData.height = $scope.height
+            $scope.editData.weight = $scope.weight
+        }
+        if ($scope.role === 'Doctor') {
+            $scope.editData.qualification = $scope.qua
+            $scope.editData.specialization = $scope.spec
+            $scope.editData.experience = $scope.exp
+        }
+    }
+
+    $scope.saveProfile = function () {
+        $http.patch(url + "users/" + currentUser.id, $scope.editData).then(function () {
+            Swal.fire({
+                title: "Updated!",
+                icon: "success",
+                text: "Profile updated successfully",
+                confirmButtonColor: '#2f94cb',
+                timer: 1500,
+                timerProgressBar: true,
+                showConfirmButton: false
+            })
+            loadProfile()
+            var modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'))
+            if (modal) modal.hide()
+        })
+    }
 
     $scope.logout = function () {
         Swal.fire({

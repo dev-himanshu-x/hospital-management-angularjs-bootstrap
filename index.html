@@ -30,10 +30,8 @@
 
     <div ng-app="myapp">
 
-        <div loader>
-            <div id="loaderDiv" ng-if="person">
-                <img src="assets/loader.gif" class="ajax-loader" alt="loader">
-            </div>
+        <div id="loaderDiv" ng-if="loading">
+            <img src="assets/loader.gif" class="ajax-loader" alt="loader">
         </div>
 
         <ui-view></ui-view>

@@ -26,44 +26,32 @@
             </div>
         </div>
     </nav>
-    <div class="d-flex w-100 py-4">
-        <div class="d-flex flex-column py-5">
-            <p class="display-3 text-dark fw-bold mb-4">
-                Total Care , Each Day Each Minute , Each Second , Even Every Moment.
-            </p>
-            <p class="text-muted fw-medium">An Atheist believes that a hospital should be built instead of a church. An
-                atheist believes that deed must be done instead of prayer said. An atheist strives for involvement in
-                life and not escape into death. He wants disease conquered, poverty vanished, war eliminated.
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-6 py-5">
+                <p class="display-5 text-dark fw-bold mb-4">
+                    Total Care, Each Day Each Minute, Each Second, Even Every Moment.
                 </p>
-            <p class="text-muted fw-medium">Living in the moment means letting go of the past and not waiting for the
-                future. It means living your life consciously, aware that each moment you breathe is a gift.”—Oprah
-                Winfrey</p>
-            <button type="button" class="btn btn-primary w-50 fw-bold mt-3" data-bs-toggle="modal"
-                data-bs-target="#exampleModal" ng-if="user">Book Appointment</button>
+                <p class="text-muted fw-medium">An Atheist believes that a hospital should be built instead of a church. An atheist believes that deed must be done instead of prayer said. An atheist strives for involvement in life and not escape into death. He wants disease conquered, poverty vanished, war eliminated.</p>
+                <p class="text-muted fw-medium">Living in the moment means letting go of the past and not waiting for the future. It means living your life consciously, aware that each moment you breathe is a gift. — Oprah Winfrey</p>
+                <button type="button" class="btn btn-primary w-100 w-lg-50 fw-bold mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal" ng-if="user">Book Appointment</button>
+            </div>
+            <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center mb-4 mb-lg-0">
+                <img src="assets/online.png" alt="online" class="img-fluid" style="max-width: 100%; height: auto;">
+            </div>
         </div>
-        <div class="d-none d-lg-flex justify-content-center align-items-center"><img src="assets/online.png"
-                alt="online" height="600" width="600"></div>
-    </div>
-    <div class="d-flex align-items-center w-100 justify-content-center">
-        <div class="d-none d-lg-flex justify-content-center align-items-center"><img src="assets/couple.jpg"
-                alt="online" height="600" width="600"></div>
-        <div class="d-flex flex-column justify-content-center p-3">
-            <h1 class="display-6 text-dark fw-medium mb-4">
-                About Us
-            </h1>
-            <span class="text-muted fw-medium">Welcome to our new website. We encourage you to find out more about the
-                values and vision that guides us, the services and programs we offer, the indicators that ensure our
-                continued accountability and transparency, and the news and events that matter most to you.India
-                Hospital has a proud tradition of care. For Last so many years, India Hospital has cared for the people
-                of Lucknow, surrounding communities, and beyond, being a significant player within the District.
-                Residing in the heart of a beautiful cottage country on the shores of the Gomti River, we offer
-                healthcare not only to our community residents but to the many visitors who frequent our beautiful area
-                year round.</span>
+        <div class="row align-items-center justify-content-center mt-5">
+            <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center mb-4 mb-lg-0">
+                <img src="assets/couple.jpg" alt="about" class="img-fluid" style="max-width: 100%; height: auto;">
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column justify-content-center p-3">
+                <h1 class="display-6 text-dark fw-medium mb-4">About Us</h1>
+                <span class="text-muted fw-medium">Welcome to our new website. We encourage you to find out more about the values and vision that guides us, the services and programs we offer, the indicators that ensure our continued accountability and transparency, and the news and events that matter most to you. India Hospital has a proud tradition of care. For Last so many years, India Hospital has cared for the people of Lucknow, surrounding communities, and beyond, being a significant player within the District. Residing in the heart of a beautiful cottage country on the shores of the Gomti River, we offer healthcare not only to our community residents but to the many visitors who frequent our beautiful area year round.</span>
+            </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Book Appointment (9:00 AM to 5:00 PM)</h1>
@@ -73,35 +61,28 @@
                         <div class="w-100 mb-4">
                             <select class="w-100 form-control" required ng-model="selectedSpecialization">
                                 <option value="">Specialization</option>
-                                <option ng-repeat="spec in specialization" value="{{spec.name}}">{{spec.name}}
-                                </option>
+                                <option ng-repeat="spec in specialization" value="{{spec.name}}">{{spec.name}}</option>
                             </select>
                         </div>
                         <div class="w-100 mb-4">
                             <select class="w-100 form-control" required name="doctor" ng-model="doctor">
                                 <option value="">Doctor</option>
-                                <option ng-repeat="doc in doctors | filter: {specializations: selectedSpecialization}"
-                                    value="{{doc.id}}">
-                                    {{doc.first_name}}
-                                    {{doc.last_name}}
+                                <option ng-repeat="doc in doctors | filter: {specialization: selectedSpecialization}" value="{{doc.id}}">
+                                    {{doc.first_name}} {{doc.last_name}}
                                 </option>
                             </select>
                         </div>
                         <div class="w-100 mb-4">
-                            <input type="date" class="w-100 form-control" ng-change="dobcheck()" ng-model="dob"
-                                name="dob">
+                            <input type="date" class="w-100 form-control" ng-change="dobcheck()" ng-model="dob" name="dob">
                         </div>
                         <div class="w-100 mb-4">
-                            <input type="time" class="w-100 form-control" ng-model="time" name="time" min="09:00"
-                                max="17:00">
+                            <input type="time" class="w-100 form-control" ng-model="time" name="time" min="09:00" max="17:00">
                         </div>
                         <div class="w-100 mb-3">
-                            <textarea type="text" placeholder="Explain problem" required class="form-control"
-                                name="reason_to_visit" pattern="[A-Za-z_ ]{1,50}" ng-model="reason_to_visit"></textarea>
+                            <textarea type="text" placeholder="Explain problem" required class="form-control" name="reason_to_visit" pattern="[A-Za-z_ ]{1,50}" ng-model="reason_to_visit"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                ng-click="clear()">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ng-click="clear()">Close</button>
                             <button type="submit" class="btn btn-primary">Book</button>
                         </div>
                     </form>

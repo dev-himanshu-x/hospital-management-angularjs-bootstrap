@@ -1,25 +1,24 @@
-<div class="vh-100 w-100 d-flex justify-content-center align-items-center azad" ng-controller="signin">
-    <div class="p-5 h-100 d-none d-md-flex justify-content-center align-items-center">
-        <img src="assets/3.jpg" height="690" width="800" alt="image" class="img-fluid">
-    </div>
-    <div class="p-5 h-100 d-flex justify-content-center flex-column">
-        <form ng-submit="submit()">
-            <h1 class="mb-1">Sign In</h1>
-            <p class="mb-4 small">Don't have an account ? <a ui-sref="signup" class="text-primary fw-semibold" style="text-decoration:none">Doctor Sign Up</a> / <a
-                    ui-sref="signup_" class="text-primary fw-semibold" style="text-decoration:none">Patient Sign Up</a></p>
-            <div class="w-100 mb-4">
-                <input type="email" placeholder="Email" required ng-model="email" class="form-control rounded-5"
-                    pattern="[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}" title="Enter a valid email (e.g. name@example.com)">
-            </div>
-            <div class="w-100 mb-4 form-control rounded-5 d-flex">
-                <input ng-attr-type="{{input_type}}" type="password" placeholder="Password" required ng-model="password"
-                    pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}" title="8-16 chars with uppercase, lowercase, number & special character">
-                <div ng-click="toggle()">
-                    <span ng-if="input_type == 'password'"><i class="ri-eye-off-line"></i></span>
-                    <span ng-if="input_type != 'password'"><i class="ri-eye-line"></i></span>
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center" ng-controller="signin">
+    <div class="row w-100">
+        <div class="col-12 col-md-6 d-none d-md-flex justify-content-center align-items-center">
+            <img src="assets/3.jpg" class="img-fluid" alt="image">
+        </div>
+        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+            <form class="w-100" ng-submit="submit()">
+                <h1 class="mb-1">Sign In</h1>
+                <p class="mb-4 small">Don't have an account? <a ui-sref="signup" class="text-primary fw-semibold" style="text-decoration:none">Doctor Sign Up</a> / <a ui-sref="signup_" class="text-primary fw-semibold" style="text-decoration:none">Patient Sign Up</a></p>
+                <div class="mb-4">
+                    <input type="email" placeholder="Email" required ng-model="email" class="form-control rounded-5" pattern="[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}" title="Enter a valid email (e.g. name@example.com)">
                 </div>
-            </div>
-            <button class="btn btn-primary w-100 rounded-5 border-0 fw-bold" id="signin" type="submit">Sign In</button>
-        </form>
+                <div class="mb-4 form-control rounded-5 d-flex">
+                    <input ng-attr-type="{{input_type}}" type="password" placeholder="Password" required ng-model="password" pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}" title="8-16 chars with uppercase, lowercase, number & special character">
+                    <div ng-click="toggle()">
+                        <span ng-if="input_type == 'password'"><i class="ri-eye-off-line"></i></span>
+                        <span ng-if="input_type != 'password'"><i class="ri-eye-line"></i></span>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 rounded-5 border-0 fw-bold" id="signin" type="submit">Sign In</button>
+            </form>
+        </div>
     </div>
 </div>
