@@ -66,3 +66,86 @@ select {
     box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.12) !important;
 }
 
+@media (max-width: 767.98px) {
+    .navbar .navbar-nav.flex-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+        padding: 0.75rem 0 !important;
+    }
+
+    .navbar .navbar-nav .nav-link {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .vh-100 {
+        min-height: 100dvh !important;
+        height: auto !important;
+    }
+
+    .container-fluid.vh-100 {
+        align-items: flex-start !important;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .container-fluid.vh-100 form {
+        max-width: 100%;
+    }
+
+    .container-fluid.vh-100 form .d-flex.w-100 {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+
+    .container-fluid.vh-100 form .d-flex.w-100 > .w-50,
+    .container-fluid.vh-100 form .d-flex.w-100 > .w-100 {
+        width: 100% !important;
+    }
+
+    .container-fluid.vh-100 form h1 {
+        font-size: 1.75rem;
+    }
+
+    .display-5 {
+        font-size: 2rem;
+    }
+
+    .display-6 {
+        font-size: 1.75rem;
+    }
+
+    .list-group-item.d-flex.justify-content-between {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.35rem;
+    }
+
+    .modal-dialog {
+        margin: 0.75rem;
+    }
+
+    #cards {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .container {
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
+    }
+
+    .card-body,
+    .card-footer,
+    .card-header {
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+    }
+
+    .btn {
+        font-size: 0.95rem;
+    }
+}
+
